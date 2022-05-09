@@ -25,3 +25,12 @@
 6. 新建module Service,设置pom文件,设置配置文件
 7. 新建module Web,设置pom文件
 
+
+# Day3 
+
+## 构建项目
+
+1. 创建三张表
+2. 创建pojo类、常量类
+@todo 创建zoozooker  设置端口
+

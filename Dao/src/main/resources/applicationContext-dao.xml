@@ -18,20 +18,20 @@
 
     <bean id="dataSource"
           class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="username" value="work" />
+        <property name="password" value="112233" />
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://192.168.137.123:3306/meinian1021?characterEncoding=utf8" />
+        <property name="url" value="jdbc:mysql://localhost:3306/SSMLearn?characterEncoding=utf8" />
     </bean>
     <!--spring和mybatis整合的工厂bean-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="com.atguigu.pojo"></property>
+        <property name="typeAliasesPackage" value="com.example.Pojo"></property>
         <property name="configLocation" value="classpath:sqlMapConfig.xml" />
     </bean>
     <!--批量扫描接口生成代理对象-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--指定接口所在的包-->
-        <property name="basePackage" value="com.atguigu.dao" />
+        <property name="basePackage" value="com.example.Dao" />
     </bean>
 </beans>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/References/1.尚硅谷_项目阶段_美年旅游_9天_V1.0/资料03_ElementUI+自由行模块/数据库设计/t_travelitem和t_travelgroup表结构.sql" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
