@@ -8,6 +8,7 @@
     <artifactId>SSMProject</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>Common</module>
         <module>Pojo</module>
@@ -16,8 +17,6 @@
         <module>Interface</module>
         <module>Web</module>
     </modules>
-
-
 
     <!-- 集中定义依赖版本号 -->
     <properties>

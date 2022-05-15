@@ -42,6 +42,9 @@
                     <port>81</port>
                     <!-- 请求路径 -->
                     <path>/</path>
+                    <username>work</username>
+                    <password>work</password>
+                    <update>true</update>
                 </configuration>
             </plugin>
         </plugins>
