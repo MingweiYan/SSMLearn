@@ -1,4 +1,4 @@
-package com.atguigu.entity;
+package com.example.entity;
 
 import java.io.Serializable;
 import java.util.List;

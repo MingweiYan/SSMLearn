@@ -37,10 +37,15 @@
 
 1. 新建Controller/Service/Dao 等组件
 
-Todo:
+2. 
 
-1. 复制前端代码大致弄明白什么意思
-2. 写后端代码
+
+## 一些记录
+
+快捷键  
+  - ctrl + alt + b 跳转到实现类? 
+  - ctrl + i 实现重写的方法
+  - 安装alt然后拖动鼠标选中多行，ctrl + w 选中一个词  ctrl + backspace 缩减到一行
 
 
 

@@ -9,9 +9,9 @@
         <meta name="keywords" content="美年旅游">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
-        <link rel="stylesheet" href="../plugins/elementui/index.css">
-        <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="..//plugins/elementui/index.css">
+        <link rel="stylesheet" href="..//plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="..//css/style.css">
     </head>
     <body class="hold-transition">
         <div id="app">
@@ -28,6 +28,7 @@
                     <div class="filter-container">
                         <el-input placeholder="项目编码/项目名称" v-model="pagination.queryString" style="width: 200px;" class="filter-item"></el-input>
                         <el-button @click="handleCurrentChange(1)" class="dalfBut">查询</el-button>
+                        <!-- 点击按钮触发  下面的方法-->
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
                     </div>
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
@@ -200,10 +201,10 @@
         </div>
     </body>
     <!-- 引入组件库 -->
-    <script src="../js/vue.js"></script>
-    <script src="../plugins/elementui/index.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script src="../js/axios-0.18.0.js"></script>
+    <script src="..//js/vue.js"></script>
+    <script src="..//plugins/elementui/index.js"></script>
+    <script type="text/javascript" src="..//js/jquery.min.js"></script>
+    <script src="..//js/axios-0.18.0.js"></script>
     <script>
         var vue = new Vue({
             el: '#app',
@@ -225,6 +226,7 @@
             },
             //钩子函数，VUE对象初始化完成后自动执行
             created() {
+                this.findPage();
             },
             methods: {
                 //编辑
@@ -232,21 +234,78 @@
                 },
                 //添加
                 handleAdd () {
+                    //1.判断表单校验是否成功，成功可以提交表单，否则，不能提交
+                    this.$refs['dataAddForm'].validate((valid)=>{
+                        if(valid){
+                            //提交异步请求,post请求，数据存放在请求体中提交的。
+                            axios.post("/travelItem/add.do",this.formData).then((resp)=>{
+                                //console.log(resp)
+                                if (resp.data.flag){ //   resp.data  ==>>  result  == {flag:true,message:'',data:''}
+                                    this.$message({
+                                        message:resp.data.message,
+                                        type:'success'
+                                    })
+                                }else{
+                                    this.$message({
+                                        message:resp.data.message,
+                                        type:'error'
+                                    })
+                                }
+
+                            }).finally(()=>{
+                                //关闭表单页面
+                                this.dialogFormVisible = false
+                                //分页查询
+                                this.findPage()
+                            })
+
+                            this.$message({
+                                message:'添加成功',
+                                type:'success'
+                            })
+                        }else{
+                            this.$message({
+                                message:'表单校验失败',
+                                type:'error'
+                            })
+                        }
+                    })
                 },
                 //分页查询
                 findPage() {
+                    //1.准备请求参数
+                    var paramData = {
+                        currentPage:this.pagination.currentPage,
+                        pageSize:this.pagination.pageSize,
+                        queryString:this.pagination.queryString
+                    }
+
+                    //2.发起异步请求查询分页数据
+                    axios.post("/travelItem/findPage.do",paramData).then((resp)=>{
+                        //console.log(resp);
+                        this.pagination.total = resp.data.total
+                        this.dataList = resp.data.rows
+                    })
+
                 },
                 // 重置表单
                 resetForm() {
+                    this.formData = {}
                 },
                 // 弹出添加窗口
                 handleCreate() {
+                    //重置表单数据
+                    this.resetForm()
+                    //显示添加表单
+                    this.dialogFormVisible = true
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    this.pagination.currentPage = currentPage
+                    this.findPage()
                 },
                 // 删除
                 handleDelete(row) {
