@@ -4,7 +4,7 @@ import com.example.constant.MessageConstant;
 import com.example.entity.Result;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.pojo.TravelItem;
-import com.example.serivice.TravelItemService;
+import com.example.service.TravelItemService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +22,7 @@ public class TravelItemController {
     TravelItemService travelItemService;
 
     //
-    @RequestMapping("/add")
+    @RequestMapping("/add.do")
     public Result add(@RequestBody TravelItem travelItem){
         try {
             travelItemService.add(travelItem);
@@ -31,6 +31,7 @@ public class TravelItemController {
             e.printStackTrace();
             return new Result(false, MessageConstant.ADD_TRAVELITEM_FAIL);
         } finally {
+
         }
     }
 }

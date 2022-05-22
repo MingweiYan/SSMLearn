@@ -3,7 +3,7 @@ package com.example.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.example.dao.TravelItemDao;
 import com.example.pojo.TravelItem;
-import com.example.serivice.TravelItemService;
+import com.example.service.TravelItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

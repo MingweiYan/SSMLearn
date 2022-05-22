@@ -1,4 +1,4 @@
-package com.example.serivice;
+package com.example.service;
 
 import com.example.pojo.TravelItem;
 

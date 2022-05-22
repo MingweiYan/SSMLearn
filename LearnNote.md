@@ -37,7 +37,7 @@
 
 1. 新建Controller/Service/Dao 等组件
 
-2. 
+2. 新增自由行的相关开发
 
 
 ## 一些记录
@@ -49,4 +49,7 @@
 
 
 
+Todo
 
+1. 请求映射到controller的时候失败
+2. service部署失败
