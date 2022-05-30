@@ -22,7 +22,7 @@ public class TravelItemController {
     TravelItemService travelItemService;
 
     //
-    @RequestMapping("/add.do")
+    @RequestMapping("/add")
     public Result add(@RequestBody TravelItem travelItem){
         try {
             travelItemService.add(travelItem);
