@@ -9,9 +9,9 @@
         <meta name="keywords" content="美年旅游">
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
-        <link rel="stylesheet" href="..//plugins/elementui/index.css">
-        <link rel="stylesheet" href="..//plugins/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="..//css/style.css">
+        <link rel="stylesheet" href="../plugins/elementui/index.css">
+        <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/style.css">
     </head>
     <body class="hold-transition">
         <div id="app">
@@ -28,7 +28,6 @@
                     <div class="filter-container">
                         <el-input placeholder="项目编码/项目名称" v-model="pagination.queryString" style="width: 200px;" class="filter-item"></el-input>
                         <el-button @click="handleCurrentChange(1)" class="dalfBut">查询</el-button>
-                        <!-- 点击按钮触发  下面的方法-->
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
                     </div>
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
@@ -201,10 +200,10 @@
         </div>
     </body>
     <!-- 引入组件库 -->
-    <script src="..//js/vue.js"></script>
-    <script src="..//plugins/elementui/index.js"></script>
-    <script type="text/javascript" src="..//js/jquery.min.js"></script>
-    <script src="..//js/axios-0.18.0.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../plugins/elementui/index.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
     <script>
         var vue = new Vue({
             el: '#app',
@@ -231,6 +230,24 @@
             methods: {
                 //编辑
                 handleEdit() {
+                    //1.表单校验
+                    this.$refs['dataEditForm'].validate((valid)=>{
+                        if (valid){//js中非null的值为true
+                            axios.post("/travelItem/edit.do",this.formData).then((resp)=>{
+                                if (resp.data.flag){
+                                    //关闭表单
+                                    this.dialogFormVisible4Edit = false
+                                    this.$message.success(resp.data.message);
+                                    this.findPage()
+                                }else{
+                                    this.$message.error(resp.data.message);
+                                }
+                            })
+                        }else{
+                            this.$message.error("表单数据校验失败");
+                        }
+                    })
+
                 },
                 //添加
                 handleAdd () {
@@ -301,6 +318,17 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+
+                    //2.发起ajax请求，根据id查询实体对象，表单回显
+                    axios.get("/travelItem/getById.do?id="+row.id).then((resp)=>{
+                        if (resp.data.flag){
+                            this.formData = resp.data.data
+                            //1.显示表单对话框
+                            this.dialogFormVisible4Edit = true
+                        }else{
+                            this.$message.error(resp.data.message);
+                        }
+                    })
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
@@ -309,25 +337,23 @@
                 },
                 // 删除
                 handleDelete(row) {
-					this.$confirm('此操作将永久删除该自由行, 是否继续?', '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning',
-						center: true
-					}).then(() => {
-						// 发送ajax请求，执行删除
-
-
-						this.$message({
-							type: 'success',
-							message: '删除成功!'
-						});
-					}).catch(() => {
-						this.$message({
-							type: 'info',
-							message: '已取消删除'
-						});
-					});
+                    this.$confirm("你确定要删除吗?","提示",{
+                        confirmButtonText:'确认',
+                        concelButtonText:'取消',
+                        type:'warning'
+                    }).then(()=>{ //确定操作
+                        axios.get("/travelItem/delete.do?id="+row.id).then((resp)=>{
+                            console.log(resp) //  resp封装Result对象，Result对象封装flag,message,data
+                            if (resp.data.flag){
+                                this.$message.success(resp.data.message);
+                                this.findPage();
+                            }else{
+                                this.$message.error(resp.data.message);
+                            }
+                        });
+                    }).catch(()=>{ //取消操作
+                        this.$message.info("取消了操作");
+                    });
                 }
             }
         })

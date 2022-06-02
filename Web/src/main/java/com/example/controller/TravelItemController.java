@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.constant.MessageConstant;
+import com.example.entity.PageResult;
+import com.example.entity.QueryPageBean;
 import com.example.entity.Result;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.pojo.TravelItem;
@@ -32,6 +34,24 @@ public class TravelItemController {
             return new Result(false, MessageConstant.ADD_TRAVELITEM_FAIL);
         } finally {
 
+        }
+    }
+
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = travelItemService.findPage(queryPageBean);
+        return pageResult;
+    }
+
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            travelItemService.delete(id);
+            return new Result(true, MessageConstant.DELETE_MEMBER_FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.DELETE_MEMBER_FAIL);
+        } finally {
         }
     }
 }

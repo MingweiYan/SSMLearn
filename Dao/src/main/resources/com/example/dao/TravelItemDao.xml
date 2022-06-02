@@ -5,6 +5,19 @@
         insert into t_travelitem(code, name, sex, age, price, type, remark, attention)
         values ( #{code}, #{name}, #{sex}, #{age}, #{price}, #{type}, #{remark}, #{attention})
     </insert>
+
+    <select id="findPage" parameterType="string" resultType="travelItem">
+        select * from t_travelitem
+        <where>
+            <if test="value != null and value.length > 0"><!--获取简单参数必须value或用@param("value")-->
+                code = #{value} or name like '%'#{value}'%'
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete" parameterType="integer">
+        delete from t_travelitem where id = #{id}
+    </delete>
 </mapper>
 
 
