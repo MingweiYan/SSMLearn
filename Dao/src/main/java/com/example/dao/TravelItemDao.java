@@ -12,4 +12,8 @@ public interface TravelItemDao {
     Page findPage(String queryString);
 
     void delete(Integer id);
+
+    TravelItem getById(Integer id);
+
+    void edit(TravelItem travelItem);
 }

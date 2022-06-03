@@ -39,7 +39,13 @@ public class TravelItemController {
 
     @RequestMapping("/findPage")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = travelItemService.findPage(queryPageBean);
+        PageResult pageResult = null;
+        try {
+            pageResult = travelItemService.findPage(queryPageBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
         return pageResult;
     }
 
@@ -51,6 +57,30 @@ public class TravelItemController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, MessageConstant.DELETE_MEMBER_FAIL);
+        } finally {
+        }
+    }
+
+    @RequestMapping("/getById")
+    public Result getById(Integer id){
+        try {
+            TravelItem travelItem = travelItemService.getById(id);
+            return new Result(true, MessageConstant.QUERY_TRAVELITEM_SUCCESS, travelItem);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_TRAVELITEM_FAIL);
+        } finally {
+        }
+    }
+
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody TravelItem travelItem){
+        try {
+            travelItemService.edit(travelItem);
+            return new Result(true, MessageConstant.EDIT_TRAVELITEM_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.EDIT_TRAVELITEM_FAIL);
         } finally {
         }
     }
