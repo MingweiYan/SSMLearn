@@ -8,6 +8,7 @@
 
     <update id="edit" parameterType="travelItem">
         update t_travelitem
+        <!-- set 忽略不更新的列-->
         <set>
             <if test="code!=null and code.length>0">
                 code=#{code},

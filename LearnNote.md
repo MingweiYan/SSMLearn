@@ -49,7 +49,5 @@
 
 
 
-Todo
-
-1. 请求映射到controller的时候失败
-2. service部署失败
+# Day4 
+1. 完成自由行的开发
