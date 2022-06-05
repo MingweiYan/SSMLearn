@@ -55,6 +55,10 @@
         select * from t_travelitem where id = #{id}
     </select>
 
+    <select id="findAll" resultType="travelItem">
+        select * from t_travelitem
+    </select>
+
 </mapper>
 
 

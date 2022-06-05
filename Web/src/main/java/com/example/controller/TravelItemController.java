@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
 
 // @Controller +　@ResponseBody
@@ -81,6 +82,18 @@ public class TravelItemController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, MessageConstant.EDIT_TRAVELITEM_FAIL);
+        } finally {
+        }
+    }
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        try {
+            List<TravelItem> list = travelItemService.findAll();
+            return new Result(true, MessageConstant.QUERY_TRAVELITEM_SUCCESS, list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_TRAVELITEM_FAIL);
         } finally {
         }
     }

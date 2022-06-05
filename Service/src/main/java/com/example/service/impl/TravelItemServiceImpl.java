@@ -11,6 +11,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 // Dubbo 服务
 @Service(interfaceClass = TravelItemService.class)
 // 所有方法都会开开启事务
@@ -38,6 +40,11 @@ public class TravelItemServiceImpl implements TravelItemService{
     @Override
     public void edit(TravelItem travelItem) {
         travelItemDao.edit(travelItem);
+    }
+
+    @Override
+    public List<TravelItem> findAll() {
+        return travelItemDao.findAll();
     }
 
     @Override
