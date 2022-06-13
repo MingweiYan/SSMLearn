@@ -54,10 +54,10 @@ public class TravelItemController {
     public Result delete(Integer id){
         try {
             travelItemService.delete(id);
-            return new Result(true, MessageConstant.DELETE_MEMBER_FAIL);
+            return new Result(true, MessageConstant.DELETE_TRAVELITEM_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(false, MessageConstant.DELETE_MEMBER_FAIL);
+            return new Result(false, MessageConstant.DELETE_TRAVELITEM_FAIL);
         } finally {
         }
     }
