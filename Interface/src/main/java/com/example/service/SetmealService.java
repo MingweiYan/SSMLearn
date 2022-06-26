@@ -14,11 +14,4 @@ public interface SetmealService {
 
     PageResult findPage(QueryPageBean queryPageBean);
 
-    Setmeal getById(Integer id);
-
-    void edit(Integer[] setmealIds, Setmeal setmeal);
-
-    List<Setmeal> findAll();
-
-    List<Integer> getTravelitemIdsBySetmealId(Integer setmealId);
 }

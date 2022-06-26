@@ -54,28 +54,4 @@ public class SetmealServiceImpl implements SetmealService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
-    @Override
-    public Setmeal getById(Integer id) {
-        return setmealDao.getById(id);
-    }
-
-    @Override
-    public void edit(Integer[] travelGroupIds, Setmeal setmeal) {
-        Integer setmealId = setmeal.getId();
-        setmealDao.delete(setmealId);
-        setmealDao.edit(setmeal);
-        setSetmealAndTravelGroup(travelGroupIds, setmealId);
-    }
-
-    @Override
-    public List<Setmeal> findAll() {
-        return setmealDao.findAll();
-    }
-
-    @Override
-    public List<Integer> getTravelitemIdsBySetmealId(Integer setmealId) {
-        return setmealDao.getTravelitemIdsBySetmealId(setmealId);
-    }
-
-
 }

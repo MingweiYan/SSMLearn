@@ -16,6 +16,7 @@
         <module>Service</module>
         <module>Interface</module>
         <module>Web</module>
+        <module>Quartz</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->

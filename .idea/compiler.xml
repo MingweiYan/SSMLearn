@@ -11,6 +11,7 @@
         <module name="org.example.entity" />
         <module name="Web" />
         <module name="Service" />
+        <module name="Quartz" />
         <module name="Interface" />
         <module name="Common" />
       </profile>

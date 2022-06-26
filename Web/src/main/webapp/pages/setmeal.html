@@ -116,7 +116,7 @@
                             <template>
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane label="基本信息" name="first">
-                                        <el-form label-position="right" label-width="100px">
+                                        <el-form label-position="right" label-width="100px" >
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="编码">
@@ -160,6 +160,15 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="上传图片">
+                                                        <!--
+                                                        class="avatar-uploader" 引用样式
+                                                        action="/setmeal/upload.do" 上传图片请求地址
+                                                        :auto-upload="autoUpload" 自动上传
+                                                        name="imgFile" 请求参数名称
+                                                        :show-file-list="false" 是否显示上传后的文件列表
+                                                        :on-success="handleAvatarSuccess" 上传成功后回调函数
+                                                        :before-upload="beforeAvatarUpload" 上传前执行事件处理，校验文件类型和大小
+                                                        -->
                                                         <el-upload
                                                                 class="avatar-uploader"
                                                                 action="/setmeal/upload.do"
@@ -252,6 +261,15 @@
             methods: {
                 //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
                 handleAvatarSuccess(response, file) {
+                    //获取文件名称
+                    //upload组件，将响应的数据之间封装到response对象上
+                    //console.log(response);
+                    //console.log(file)
+                    this.imageUrl = "http://qngurd5c1.hn-bkt.clouddn.com/"+response.data ; //图片名称
+                    //response.flag ;
+                    //response.message;
+                    //表单提交时，提交文件名称，保存到数据库。
+                    this.formData.img = response.data
                 },
                 //上传图片之前执行
                 beforeAvatarUpload(file) {
@@ -267,18 +285,53 @@
                 },
                 //添加
                 handleAdd () {
+                    //准备数据
+                    //this.formData
+                    //this.travelgroupIds
+                    axios.post("/setmeal/add.do?travelgroupIds="+this.travelgroupIds,this.formData).then((resp)=>{
+                        if(resp.data.flag){
+                            this.dialogFormVisible = false
+                            this.$message.success(resp.data.message)
+                            this.findPage()
+                        }else{
+                            this.$message.error(resp.data.message)
+                        }
+                    })
                 },
                 //分页查询
                 findPage() {
+                    var paramData ={
+                        currentPage:this.pagination.currentPage,
+                        pageSize:this.pagination.pageSize,
+                        queryString:this.pagination.queryString
+                    }
+                    axios.post("/setmeal/findPage.do",paramData).then((resp)=>{
+                        this.dataList = resp.data.rows
+                        this.pagination.total = resp.data.total
+                    })
                 },
                 // 重置表单
                 resetForm() {
+                    this.formData = {}
+                    this.travelgroupIds = []
+                    this.imageUrl = null
+                    this.tableData = []
+                    this.activeName = 'first'
                 },
                 // 弹出添加窗口
                 handleCreate() {
+                    this.resetForm()
+                    this.dialogFormVisible = true
+
+                    //回显跟团游列表数据
+                    axios.get("/travelGroup/findAll.do").then((resp)=>{
+                        this.tableData = resp.data.data
+                    })
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    this.pagination.currentPage = currentPage
+                    this.findPage()
                 }
             }
         })
