@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.SetmealDao">
     <!--  主键回显  -->
-    <insert id="add" parameterType="seatmeal" keyProperty="id" useGeneratedKeys="true" >
+    <insert id="add" parameterType="com.example.pojo.Setmeal" keyProperty="id" useGeneratedKeys="true" >
         insert into t_setmeal(code, name, age, helpCode, sex, remark, attention, img)
         values ( #{code}, #{name}, #{age}, #{helpCode},  #{sex},  #{remark}, #{attention}, #{img})
     </insert>
 
-    <select id="findPage" parameterType="string" resultType="setmeal">
+    <select id="findPage" parameterType="string" resultType="com.example.pojo.Setmeal">
         select * from t_setmeal
-    <where>
-        <if test="queryString != null and queryString.length > 0">
-            code = #{queryString} or name like concat('%', #{queryString}, '%') or helpCode = #{queryString}
-        </if>
-    </where>
+        <where>
+            <if test="queryString != null and queryString.length > 0">
+                code = #{queryString} or name like concat('%', #{queryString}, '%') or helpCode = #{queryString}
+            </if>
+        </where>
     </select>
 
     <insert id="addSetmealAndTravelGroup" parameterType="map">
@@ -23,4 +23,3 @@
 
 
 </mapper>
-

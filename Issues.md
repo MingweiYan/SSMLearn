@@ -14,3 +14,4 @@
 5.  org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.example.dao.TravelItemDao.add, dubbo version: 2.6.0, current host: 127.0.0.1
     org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.example.dao.TravelItemDao.add
     - 查阅资料表示这种错误是定义的dao的接口和对应的mybatis的xml名字或者命名空间对不上导致的，经过排查后发现没有这个问题，最后发现是放置XML文件的路径不对，将路径修改为package相同的路径就OK了
+    - 一个错误的可能是 XML 和 Dao对应Class的文件名字对应不一致

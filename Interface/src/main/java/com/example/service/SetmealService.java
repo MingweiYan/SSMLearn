@@ -11,7 +11,6 @@ public interface SetmealService {
 
     void add(Integer[] setmealIds, Setmeal setmeal);
 
-
     PageResult findPage(QueryPageBean queryPageBean);
 
 }

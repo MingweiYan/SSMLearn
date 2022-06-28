@@ -42,7 +42,7 @@ public class SetmealServiceImpl implements SetmealService {
                 HashMap<String, Integer> map = new HashMap<>();
                 map.put("travelGroupId", travelGroupId);
                 map.put("setmealId", setmealId);
-                setmealDao.setSetmealAndTravelGroup(map);
+                setmealDao.addSetmealAndTravelGroup(map);
             }
         }
     }
