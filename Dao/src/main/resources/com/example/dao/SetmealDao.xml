@@ -18,7 +18,7 @@
 
     <insert id="addSetmealAndTravelGroup" parameterType="map">
         insert into t_setmeal_travelgroup(setmeal_id, travelgroup_id)
-        VALUES(#{setmealId}, #{travelgroupId})
+        VALUES(#{setmealId}, #{travelGroupId})
     </insert>
 
 

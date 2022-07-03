@@ -15,3 +15,7 @@
     org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.example.dao.TravelItemDao.add
     - 查阅资料表示这种错误是定义的dao的接口和对应的mybatis的xml名字或者命名空间对不上导致的，经过排查后发现没有这个问题，最后发现是放置XML文件的路径不对，将路径修改为package相同的路径就OK了
     - 一个错误的可能是 XML 和 Dao对应Class的文件名字对应不一致
+    
+6. org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException: Fail to save: an error occurs  
+   - 查阅资料 如果要针对同一个excel文件进行多次读写，在根据这个文件再次创建Workbook 对象的时候一定要使用流，而不是使用File，将直接从File创建改成从输入流创建就OK了，
+     参考：  https://blog.csdn.net/m0_37607945/article/details/107270405
