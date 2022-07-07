@@ -6,6 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 public class TestPOI {
 
-
+    @Ignore
     @Test
     public void importExcel() throws IOException {
         //在内存中创建一个Excel文件
@@ -48,7 +49,7 @@ public class TestPOI {
         out.close();//关闭
         workbook.close();
     }
-
+    @Ignore
     @Test
     public void readExcel() throws IOException {
         // 先创建流 防止报错

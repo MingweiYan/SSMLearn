@@ -17,6 +17,7 @@
         <module>Interface</module>
         <module>Web</module>
         <module>Quartz</module>
+        <module>MoblieWeb</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->
@@ -220,6 +221,22 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-taglibs</artifactId>
                 <version>${spring.security.version}</version>
+            </dependency>
+            <!-- SMS相关 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
             </dependency>
             <dependency>
                 <groupId>com.github.penggle</groupId>
