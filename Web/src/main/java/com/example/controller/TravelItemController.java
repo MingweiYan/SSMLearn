@@ -7,6 +7,7 @@ import com.example.entity.Result;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.example.pojo.TravelItem;
 import com.example.service.TravelItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class TravelItemController {
 
     //
     @RequestMapping("/add")
+    @PreAuthorize("hasAuthority('TRAVELITEM_ADD')")
     public Result add(@RequestBody TravelItem travelItem){
         try {
             travelItemService.add(travelItem);
@@ -39,6 +41,7 @@ public class TravelItemController {
     }
 
     @RequestMapping("/findPage")
+    @PreAuthorize("hasAuthority('TRAVELITEM_QUERY')")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult pageResult = null;
         try {
@@ -51,6 +54,7 @@ public class TravelItemController {
     }
 
     @RequestMapping("/delete")
+    @PreAuthorize("hasAuthority('TRAVELITEM_DELETE')")
     public Result delete(Integer id){
         try {
             travelItemService.delete(id);
@@ -75,6 +79,7 @@ public class TravelItemController {
     }
 
     @RequestMapping("/edit")
+    @PreAuthorize("hasAuthority('TRAVELITEM_EDIT')")
     public Result edit(@RequestBody TravelItem travelItem){
         try {
             travelItemService.edit(travelItem);
