@@ -16,6 +16,7 @@ import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service(interfaceClass = SetmealService.class)
 @Transactional
@@ -52,6 +53,11 @@ public class SetmealServiceImpl implements SetmealService {
         PageHelper.startPage(queryPageBean.getCurrentPage(), queryPageBean.getPageSize());
         Page page = setmealDao.findPage(queryPageBean.getQueryString());
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public List<Map<String, Object>> findSetmealCount() {
+        return setmealDao.findSetmealCount();
     }
 
 }

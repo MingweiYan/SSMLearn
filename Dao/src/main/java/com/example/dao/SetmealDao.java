@@ -5,6 +5,8 @@ import com.example.pojo.Setmeal;
 import com.github.pagehelper.Page;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface SetmealDao {
 
@@ -13,4 +15,6 @@ public interface SetmealDao {
     void addSetmealAndTravelGroup(HashMap<String, Integer> map);
 
     Page findPage(String queryString);
+
+    List<Map<String, Object>> findSetmealCount();
 }
