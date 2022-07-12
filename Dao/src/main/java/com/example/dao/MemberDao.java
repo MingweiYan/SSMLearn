@@ -1,17 +1,21 @@
 package com.example.dao;
 
+import com.example.pojo.Member;
+
 import java.util.List;
 import java.util.Map;
 
 public interface MemberDao {
-    public Integer findMemberCountBeforeDate(String date);
+    Member getMemberByTelephone(String telephone);
 
-    List<Map<String, Object>> findSetmealCount();
+    void add(Member member);
 
-    int getTodayNewMember(String today);
+    int findMemberCountByMonth(String month);
+
+    int getTodayNewMember(String date);
 
     int getTotalMember();
 
-    int getThisWeekAndMonthNewMember(String weekMonday);
+    int getThisWeekAndMonthNewMember(String date);
 }
 

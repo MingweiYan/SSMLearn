@@ -1,16 +1,24 @@
 package com.example.dao;
 
+import com.example.pojo.Order;
+
 import java.util.List;
 import java.util.Map;
 
 public interface OrderDao {
-    public int getTodayOrderNumber(String today);
+    List<Order> findOrderByCondition(Order orderParam);
 
-    public int getTodayVisitsNumber(String today);
+    void add(Order order);
 
-    public int getThisWeekAndMonthOrderNumber(Map<String, Object> paramWeek);
+    Map<String, Object> findById(Integer orderId);
 
-    public int getThisWeekAndMonthVisitsNumber(Map<String, Object> paramWeekVisit);
+    int getTodayOrderNumber(String date);
 
-    public List<Map<String,Object>> findHotSetmeal();
+    int getTodayVisitsNumber(String date);
+
+    int getThisWeekAndMonthOrderNumber(Map<String, Object> map);
+
+    int getThisWeekAndMonthVisitsNumber(Map<String, Object> map);
+
+    List<Map<String,Object>> findHotSetmeal();
 }
