@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.example.dao.MemberDao;
+import com.example.pojo.Member;
 import com.example.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,16 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDao memberDao;
 
+    @Override
+    public Member findByTelephone(String telephone) {
+        return memberDao.getMemberByTelephone(telephone);
+    }
+
+    @Override
+    public void add(Member member) {
+        memberDao.add(member);
+    }
+
     // 根据月份统计会员数量
     @Override
     public List<Integer> findMemberCountByMonth(List<String> months) {
@@ -29,8 +40,6 @@ public class MemberServiceImpl implements MemberService {
                 list.add(count);
             }
         }
-
         return list;
     }
-
 }

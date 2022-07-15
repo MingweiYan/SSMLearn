@@ -39,32 +39,35 @@ public class ReportController {
      * @return
      */
     @RequestMapping("/getMemberReport")
-    public Result getMemberReport() {
-        // 获取日历对象
-        Calendar calendar = Calendar.getInstance();
-        //根据当前时间，获取前12个月的日历(当前日历2020-02，12个月前，日历时间2019-03)
-        //第一个参数，日历字段
-        //第二个参数，要添加到字段中的日期或时间
-        calendar.add(Calendar.MONTH,-12);
+    public Result getMemberReport(){
 
-        List<String> list = new ArrayList<String>();
-        for(int i=0;i<12;i++){
-            //第一个参数是月份 2018-7
-            //第二个参数是月份+1个月
-            calendar.add(Calendar.MONTH,1);
-            list.add(new SimpleDateFormat("yyyy-MM").format(calendar.getTime()));
+        try {
+
+            List<String> months = new ArrayList<>();
+            List<Integer> memberCount = null;
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH,-12);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+            for(int i=0;i<12;i++){
+                calendar.add(Calendar.MONTH,1);
+                Date time = calendar.getTime();
+                String month = sdf.format(time);
+                months.add(month);
+            }
+            memberCount = memberService.findMemberCountByMonth(months);
+
+            Map map = new HashMap();
+            map.put("months",months);
+            map.put("memberCount",memberCount);
+
+            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS,map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.GET_MEMBER_NUMBER_REPORT_FAIL);
         }
-
-        Map<String,Object> map = new HashMap<String,Object>();
-        // 把过去12个月的日期存储到map里面
-        map.put("months",list);
-        // 查询所有的会员
-        List<Integer> memberCount = memberService.findMemberCountByMonth(list);
-        map.put("memberCount",memberCount);
-
-        return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS,map);
     }
-
 
 
     // 统计套餐预约人数占比（饼图）
